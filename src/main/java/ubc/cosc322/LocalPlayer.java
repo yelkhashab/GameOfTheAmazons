@@ -9,14 +9,14 @@ import ygraph.ai.smartfox.games.GameClient;
 import ygraph.ai.smartfox.games.GamePlayer;
 
 public abstract class LocalPlayer extends GamePlayer {
-	private String username;
-	private String password;
+	private final String username;
+	private final String password;
 
 	protected LocalBoard board = new LocalBoard();
-	protected MoveGenerator actionGenerator = new MoveGenerator();
+	protected MoveGenerator MoveGenerator = new MoveGenerator();
 
 	private GameClient gameClient = null;
-	private BaseGameGUI gameGUI = null;
+	private BaseGameGUI gameGUI;
 
 	public LocalPlayer(String username, String password) {
 		this.username = username;
@@ -28,7 +28,7 @@ public abstract class LocalPlayer extends GamePlayer {
 	protected abstract void move();
 
 	/** Returns the list of actions that can be taken from the current state. */
-	protected ArrayList<Move> getAvailableMoves() { return actionGenerator.getMoves(board); }
+	protected ArrayList<Move> getAvailableMoves() { return MoveGenerator.getMoves(board); }
 
 	/** Sends a move to the server and updates the local state accordingly. */
 	protected void sendMove(List<Integer> queenCurrent, List<Integer> queenTarget, List<Integer> arrowTarget) {
